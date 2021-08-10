@@ -1,0 +1,39 @@
+{
+  "name": "products-caliche",
+  "version": "1.0.0",
+  "description": "caliche products endpoint",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "jest",
+    "run": "node .",
+    "lint": "eslint -c .eslintrc.json --ext .ts src",
+    "build": "rollup -c"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Team-Caliche/products-caliche.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Team-Caliche/products-caliche/issues"
+  },
+  "homepage": "https://github.com/Team-Caliche/products-caliche#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongodb": "^4.1.0"
+  },
+  "devDependencies": {
+    "@rollup/plugin-typescript": "^8.2.5",
+    "@tsconfig/node14": "^1.0.1",
+    "@types/express": "^4.17.13",
+    "@types/mongodb": "^3.6.20",
+    "@types/mongoose": "^5.11.97",
+    "@typescript-eslint/eslint-plugin": "^4.29.1",
+    "@typescript-eslint/parser": "^4.29.1",
+    "eslint": "^7.32.0",
+    "mongoose": "^5.13.6",
+    "rollup": "^2.56.1",
+    "typescript": "^4.3.5"
+  }
+}
