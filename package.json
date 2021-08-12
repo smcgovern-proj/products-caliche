@@ -38,5 +38,6 @@
     "snappy": "^7.0.1",
     "ts-node": "^10.2.0",
     "typescript": "^4.3.5"
-  }
+  },
+  "type": "module"
 }
