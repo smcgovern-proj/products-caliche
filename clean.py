@@ -12,17 +12,18 @@ related_raw = pd.read_csv('~/Downloads/related.csv')
 # manipulation
 # (1) adds a 'related' column to our products DF with an array of other product ids
 related_filtered = related_raw.filter(items=['current_product_id', 'related_product_id']).rename(columns={'current_product_id': 'id'})
-products_related = products_raw.merge(related_filtered.groupby('id')['related_product_id'].apply(lambda x: list(set(x))).reset_index()).rename(columns={'related_product_id': 'related'})
+products_related = products_raw.merge(related_filtered.groupby('id')['related_product_id'].apply(lambda x: list(set(x))).reset_index())
+products_related.rename(columns={'related_product_id': 'related'}, inplace=True)
 
 # (2) adds a 'features' column to our products DF with an array of feature: string, value:string dicts
 features_filtered = features_raw.filter(items=['product_id', 'feature', 'value']).rename(columns={'product_id': 'id'})
 
-# replace NaN with empty string, zip feature/val columns together as a fourth column 'kvp' 
-# features_filtered.fillna('', inplace=True)
+# zip feature/val columns together as a fourth column 'kvp' 
 kvp = list(zip(features_filtered['feature'], features_filtered['value']))
 kvp = [{'feature': p[0], 'value' : p[1]} for p in kvp]
 features_filtered['kvp'] = kvp
 
+# merge features into products DF and rename to 'features' field
 products_final = products_related.merge(features_filtered.groupby('id')['kvp'].apply(list).reset_index())
 products_final.rename(columns={'kvp': 'features'}, inplace=True)
 print(products_final.head())
