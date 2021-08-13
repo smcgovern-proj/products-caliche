@@ -4,11 +4,7 @@ print('beginning clean process')
 # initialization
 # products_raw = pd.read_csv('~/Downloads/product.csv')
 styles_raw = pd.read_csv('~/Downloads/styles.csv')
-col_names = ['id', 'styleId', 'url', 'thumbnail_url']
-photos_raw = pd.read_csv('~/Downloads/photos.csv', names=col_names)
-photos_raw = photos_raw.iloc[1:]
-photos_raw.astype({'styleId': int})
-print(photos_raw.head())
+photos_raw = pd.read_csv('~/Downloads/photos.csv', on_bad_lines='skip')
 # features_raw = pd.read_csv('~/Downloads/features.csv')
 # related_raw = pd.read_csv('~/Downloads/related.csv')
 
@@ -32,13 +28,14 @@ print(photos_raw.head())
 # products_final.drop_duplicates(subset=['id'], inplace=True)
 
 styles_raw.rename(columns={'default_style' : 'default'}, inplace=True)
-photos_filtered = photos_raw.filter(items=['styleId', 'url', 'thumbnail_url'])
-urls = list(zip(photos_filtered['url'], photos_filtered['thumbnail_url']))
+urls = list(zip(photos_raw['url'], photos_raw['thumbnail_url']))
 urls = [{'url': p[0], 'thumbnail_url' : p[1]} for p in urls]
-photos_filtered['photos'] = urls
-grouped_photos = photos_filtered.groupby('styleId')['photos']
-for key, item in grouped_photos:
-    print(grouped_photos.get_group(key))
+photos_raw['photos'] = urls
+photos_filtered = photos_raw.filter(items=['styleId', 'photos'])
+grouped_photos = photos_filtered.groupby(['styleId'])['photos'].apply(list).reset_index().rename(columns={'styleId': 'id'})
+styles_photos = styles_raw.merge(grouped_photos)
+print(styles_raw.head())
+print(styles_photos.head())
 # styles_photos = styles_raw.merge(photos_filtered, how='left', on='id' )
 # styles_photos = styles_raw.merge(photos_filtered.groupby('id')['photos'].apply(list).reset_index())
 # print(styles_photos.head(50))
