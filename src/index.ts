@@ -8,7 +8,9 @@ app.get('/', (req, res) => {
   res.send('hello world!')
 })
 
-app.get('/products', (req, res) => {})
+app.get('/products', (req, res) => {
+  // db.get();
+})
 app.get('/products:product_id', (req, res) => {})
 app.get('/products:product_id/styles', (req, res) => {})
 app.get('/products:product_id/related', (req, res) => {})

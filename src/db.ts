@@ -8,26 +8,14 @@ db.on('error', console.error.bind(console, 'connection error:'))
 db.once('open', () => {
   console.log('successfully opened connection to mongoDB')
 
-  const productSchema = new mongoose.Schema({
-    id: {type: Number, required: true},
-    name: String,
-    slogan: String,
-    description: String,
-    category: String,
-    default_price: String,
-    related: [ {product_id: Number} ],
-    features: [ {feature: String, value: String} ],
+  const productSchema = new mongoose.Schema({}, {
+    collection: 'products'
   })
-
-  const styleSchema = new mongoose.Schema({
-    style_id: {type: Number, required: true},
-    product_id: {type: Number, required: true},
-    name: String,
-    original_price: String,
-    sale_price: String,
-    default: Boolean,
-    photos: [ {url: String, thumnail_url: String} ],
-    skus: [ {quantity: Number, size: String} ],
+  const styleSchema = new mongoose.Schema({}, {
+    collection: 'styles'
+  })
+  const skuSchema = new mongoose.Schema({}, {
+    collection: 'skus'
   })
 
   const Product = mongoose.model('Product', productSchema);
