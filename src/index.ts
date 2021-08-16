@@ -40,15 +40,20 @@ app.get('/products:product_id', async (req, res) => {
 app.get('/products:product_id/styles', async (req, res) => {
   const id = req.params.product_id
   try {
-    let response = {
-      product_id: id
+    const response = {
+      product_id: id,
     }
-    let styles:any[] = await db.model('Style').find({'product_id': id})
-    styles = styles.map((style) => {
-
-
-    })
-
+    const styles:any[] = await db.model('Style').find({'product_id': id})
+    for (let x = 0; x < styles.length; x++) {
+      const newSkus:any = {}
+      for(let y = 0; y < styles[x].skus.length; y++) {
+        const skuId = styles[x].skus[y]
+        const sku = await db.model('Sku').find({id: skuId })
+        newSkus[skuId] = sku
+      }
+      styles[x].skus = newSkus
+    }
+    response.results = styles
     res.status(200).send(response)
   } catch (err) {
     res.status(500).send(err)
