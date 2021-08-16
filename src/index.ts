@@ -27,13 +27,13 @@ app.get('/products', async (req, res) => {
   }
 })
 
-app.get('/products:product_id', async (req, res) => {
-  const id = req.params.product_id
+app.get('/products/:product_id', async (req, res) => {
+  const id = Number(req.params.product_id)
   try {
-    const response = await db.model('Product').findOne({id: id})
+    const response = await db.model('Product').find({id: id})
     res.status(200).send(response)
   } catch (err) {
-    res.status(404).send(err)
+    res.status(404).send('err getting specific id')
   }
 })
 
