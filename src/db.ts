@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
 
-mongoose.connect('mongodb://localhost:27017/calicheProducts', { useUnifiedTopology: true, useNewUrlParser: true }).catch(err => console.log('err on connect', err))
+mongoose.connect('mongodb://localhost:27017/calicheClean', { useUnifiedTopology: true, useNewUrlParser: true }).catch(err => console.log('err on connect', err))
 
 const db = mongoose.connection
 
@@ -20,7 +20,7 @@ db.once('open', () => {
 
   const Product = mongoose.model('Product', productSchema);
   const Style = mongoose.model('Style', styleSchema);
-
+  const Sku = mongoose.model('Sku', skuSchema);
 })
 
 export default db

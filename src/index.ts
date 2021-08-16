@@ -4,8 +4,13 @@ import db from './db'
 const app = express()
 const port = 3000
 
-app.get('/', (req, res) => {
-  res.send('hello world!')
+app.get('/', async (req, res) => {
+  try {
+    const response = await db.model('Product').findOne({})
+    res.status(200).send(response)
+  } catch (err) {
+    res.status(500).send('err with db')
+  }
 })
 
 app.get('/products', (req, res) => {
