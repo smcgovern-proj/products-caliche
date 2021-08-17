@@ -40,20 +40,33 @@ app.get('/products/:product_id', async (req, res) => {
 app.get('/products/:product_id/styles', async (req, res) => {
   const id = Number(req.params.product_id)
   try {
+
+    //initialize response object
     const response = {
       product_id: id,
     }
-    const styles:any[] = await db.model('Style').find({'productId': id})
-    // for (let x = 0; x < styles.length; x++) {
-    //   console.log(styles[x].skus)
-    //   const newSkus:any = {}
-    //   for(let y = 0; y < styles[x].skus.length; y++) {
-    //     const skuId = styles[x].skus[y]
-    //     const sku = await db.model('Sku').find({id: skuId })
-    //     newSkus[skuId] = sku
-    //   }
-    //   styles[x].skus = newSkus
-    // }
+
+    //get matching styles by prod id from db
+    const styles:any[] = await db.model('Style').aggregate([
+      {$match: {productId: id}},
+    ])
+
+    //iterate over styles, changing 'skus' key to what we want
+    for(let x = 0; x < styles.length; x++) {
+      const skus = styles[x].skus
+      const newSkus = {}
+      for (let y = 0; y < skus.length; y++) {
+        let info:any = await db.model('Sku').findOne({id: skus[y]})
+        info = info.toObject()
+        newSkus[skus[y]] = {
+          quantity: info.quantity,
+          size: info.size
+        }
+      }
+      styles[x].skus = newSkus
+    }
+
+    //finish response object and send
     response.results = styles
     res.status(200).send(response)
   } catch (err) {
