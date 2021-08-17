@@ -18,6 +18,10 @@ db.once('open', () => {
     collection: 'skus'
   })
 
+  //indexes used in styles query
+  skuSchema.index({id: 1})
+  styleSchema.index({productId: 1})
+
   const Product = mongoose.model('Product', productSchema);
   const Style = mongoose.model('Style', styleSchema);
   const Sku = mongoose.model('Sku', skuSchema);

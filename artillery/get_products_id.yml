@@ -4,16 +4,16 @@ config:
     - duration: 30
       arrivalRate: 5
       name: warmup
-    - duration: 60
+    - duration: 120
       arrivalRate: 5
       rampTo: 30
       name: start load
-    - duration: 60
-      arrivalRate: 35
-      name: sustain load
+    # - duration: 60
+    #   arrivalRate: 45
+    #   name: sustain load
 
 scenarios:
   - name: "get products"
     flow: 
       - get:
-          url: "/products"
+          url: "/products/5"

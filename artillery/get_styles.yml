@@ -1,0 +1,20 @@
+
+config:
+  target: "http://localhost:3000"
+  phases:
+    - duration: 30
+      arrivalRate: 2
+      name: warmup
+    # - duration: 120
+    #   arrivalRate: 5
+    #   rampTo: 20
+    #   name: start load
+    # - duration: 60
+    #   arrivalRate: 20
+    #   name: sustain load
+
+scenarios:
+  - name: "get product styles"
+    flow: 
+      - get:
+          url: "/products/1/styles"
