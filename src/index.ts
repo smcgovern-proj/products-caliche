@@ -1,3 +1,4 @@
+require('newrelic')
 import express from 'express'
 import db from './db'
 import { Product } from './types'

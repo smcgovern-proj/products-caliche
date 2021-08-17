@@ -21,7 +21,8 @@
   "homepage": "https://github.com/Team-Caliche/products-caliche#readme",
   "dependencies": {
     "express": "^4.17.1",
-    "mongodb": "^4.1.0"
+    "mongodb": "^4.1.0",
+    "newrelic": "^8.1.0"
   },
   "devDependencies": {
     "@tsconfig/node14": "^1.0.1",

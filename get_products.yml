@@ -1,13 +1,19 @@
 config:
-  target: "http://localhost:3000/products"
+  target: "http://localhost:3000"
   phases:
     - duration: 30
       arrivalRate: 5
       name: warmup
     - duration: 60
       arrivalRate: 5
-      rampTo: 50
+      rampTo: 30
       name: start load
     - duration: 60
-      arrivalRate: 50
+      arrivalRate: 35
       name: sustain load
+
+scenarios:
+  - name: "get products"
+    flow: 
+      - get:
+          url: "/products"
