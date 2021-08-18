@@ -13,7 +13,7 @@ config:
     #   name: sustain load
 
 scenarios:
-  - name: "get products"
+  - name: "get products/:id/related"
     flow: 
       - get:
-          url: "/products/5"
+          url: "/products/9/related"

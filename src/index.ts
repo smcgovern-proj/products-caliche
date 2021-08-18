@@ -70,13 +70,14 @@ app.get('/products/:product_id/styles', async (req, res) => {
     //finish response object and send
     response.results = styles
     res.status(200).send(response)
+
   } catch (err) {
     res.status(500).send(err)
   }
 })
 
-app.get('/products:product_id/related', async (req, res) => {
-  const id = req.params.product_id
+app.get('/products/:product_id/related', async (req, res) => {
+  const id = Number(req.params.product_id)
   try {
     const prod = await db.model('Product').findOne({id: id})
     const related = prod.related
