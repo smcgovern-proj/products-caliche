@@ -1,2 +1,5 @@
-# products
-repo for the products service of the atelier api
+# Intro
+This repo showcases my work on the backend "products" service for a MERN-stack ecommerce app. In short, I was given some rather large, messy .csv files and asked to load them into a MongoDB database, as well as hook up an Express backend that would serve a few basic GET requests. 
+
+# Dev Process
+Though I'm not very familiar with Python, I ended up using a tool called [pandas](https://pandas.pydata.org/) to clean my .csv files and do a couple SQL-style joins on the data. As someone who feels most comfortable with JS/CSS on the frontend, teaching myself as I went was an equally rewarding and difficult experience. Luckily, doing that work upfront made writing the actual endpoints in Express relatively trivial. It also led to fairly quick operations! I didn't have to do much work with aggregations pipelines and the like, as my data was largely in the shape I already wanted it to be. At the end of the day, I was able to bring the median response time to well under 100ms at a sustained, 1000 request per second load.
